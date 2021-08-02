@@ -112,5 +112,9 @@ ext.deps = [
                 'truth'       : "com.google.truth:truth:1.1.2",
                 'turbine'     : "app.cash.turbine:turbine:0.4.0",
                 'junitParams' : "pl.pragmatists:JUnitParams:1.1.1"
-        ]
+        ],
+        'paging'              : [
+                'compose'     :  "androidx.paging:paging-compose:1.0.0-alpha02"
+        ],
+        'timber'              : "com.jakewharton.timber:timber:4.7.1"
 ]

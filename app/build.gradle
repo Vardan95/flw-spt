@@ -97,4 +97,8 @@ dependencies {
     // endregion
 
     implementation deps.easyPermissions
+
+    implementation deps.paging.compose
+
+    implementation deps.timber
 }

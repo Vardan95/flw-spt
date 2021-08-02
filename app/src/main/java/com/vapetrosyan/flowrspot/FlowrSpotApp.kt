@@ -2,6 +2,17 @@ package com.vapetrosyan.flowrspot
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+
+import timber.log.Timber.DebugTree
 
 @HiltAndroidApp
-class FlowrSpotApp : Application()
+class FlowrSpotApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
+    }
+}

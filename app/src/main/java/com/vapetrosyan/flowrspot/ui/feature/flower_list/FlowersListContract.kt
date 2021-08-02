@@ -1,6 +1,7 @@
 package com.vapetrosyan.flowrspot.ui.feature.flower_list
 
-import com.vapetrosyan.flowrspot.data.model.FlowersListResult
+import androidx.paging.PagingData
+import com.vapetrosyan.flowrspot.data.model.FlowerListItem
 import com.vapetrosyan.flowrspot.ui.base.ViewEvent
 import com.vapetrosyan.flowrspot.ui.base.ViewSideEffect
 import com.vapetrosyan.flowrspot.ui.base.ViewState
@@ -12,9 +13,8 @@ class FlowersListContract {
     }
 
     sealed class State : ViewState {
-        object Empty : State()
-        data class Data(val data: FlowersListResult) : State()
-        data class Loading(val isLoading: Boolean) : State()
+        object Initial : State()
+        data class Data(val pager: PagingData<FlowerListItem>) : State()
     }
 
     sealed class Effect : ViewSideEffect {
