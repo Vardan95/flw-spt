@@ -10,10 +10,10 @@ class FlowerListConverter @Inject constructor(private val flowerListListItemConv
         FlowersListResult(
             flowers = flowerList.flowers.map { flowerListListItemConverter.dtoToModel(it) },
             meta = PaginationMetaInfo(
-                currentPage = flowerList.meta.currentPage,
-                previousPage = flowerList.meta.previousPage,
-                nextPage = flowerList.meta.nextPage,
-                totalPages = flowerList.meta.totalPages,
+                currentPage = flowerList.meta.pagination.currentPage,
+                previousPage = flowerList.meta.pagination.previousPage,
+                nextPage = flowerList.meta.pagination.nextPage,
+                totalPages = flowerList.meta.pagination.totalPages,
             )
         )
 }

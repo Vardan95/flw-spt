@@ -3,12 +3,10 @@ package com.vapetrosyan.flowrspot.ui.feature.flower_list
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.vapetrosyan.flowrspot.data.FlowerRepository
 import com.vapetrosyan.flowrspot.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -51,28 +49,24 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
     }
 
     private fun loadFlowers(searchText: String?) {
-        viewModelScope.launch {
-            Pager(
-                PagingConfig(
-                    pageSize = CONTACTS_PAGE_SIZE,
-                    initialLoadSize = CONTACTS_PAGE_SIZE * 2
-                )
-            ) {
-                FlowerListPagingSource {
-                    if (searchText == null) {
-                        flowerRepository.getFlowers(it)
-                    } else {
-                        flowerRepository.searchFlowers(searchText = searchText, page = it)
+        emitState {
+            FlowersListContract.State.Data(
+                pager = Pager(
+                    PagingConfig(
+                        pageSize = CONTACTS_PAGE_SIZE,
+                        initialLoadSize = CONTACTS_PAGE_SIZE * 2
+                    )
+                ) {
+                    FlowerListPagingSource {
+                        if (searchText == null) {
+                            flowerRepository.getFlowers(it)
+                        } else {
+                            flowerRepository.searchFlowers(searchText = searchText, page = it)
+                        }
                     }
                 }
-            }
-                .flow
-                .cachedIn(viewModelScope)
-                .collect {
-                    emitState {
-                        FlowersListContract.State.Data(it)
-                    }
-                }
+                    .flow
+            )
         }
     }
 }

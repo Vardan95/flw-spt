@@ -5,6 +5,7 @@ import com.vapetrosyan.flowrspot.data.model.FlowerListItem
 import com.vapetrosyan.flowrspot.ui.base.ViewEvent
 import com.vapetrosyan.flowrspot.ui.base.ViewSideEffect
 import com.vapetrosyan.flowrspot.ui.base.ViewState
+import kotlinx.coroutines.flow.Flow
 
 class FlowersListContract {
     sealed class Event : ViewEvent {
@@ -14,7 +15,7 @@ class FlowersListContract {
 
     sealed class State : ViewState {
         object Initial : State()
-        data class Data(val pager: PagingData<FlowerListItem>) : State()
+        data class Data(val pager: Flow<PagingData<FlowerListItem>>) : State()
     }
 
     sealed class Effect : ViewSideEffect {

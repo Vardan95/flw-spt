@@ -1,6 +1,7 @@
 package com.vapetrosyan.flowrspot.ui.feature.flower_list
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.vapetrosyan.flowrspot.data.model.FlowerListItem
 
 class FlowerListPagingSource(
@@ -15,10 +16,17 @@ class FlowerListPagingSource(
             LoadResult.Page(
                 data = response,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = nextPage + 1
+                nextKey = if (response.isNotEmpty()) nextPage + 1 else null
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, FlowerListItem>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
         }
     }
 }

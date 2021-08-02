@@ -43,6 +43,7 @@ android {
     }
 
     composeOptions {
+        kotlinCompilerVersion versions.kotlin
         kotlinCompilerExtensionVersion versions.compose
     }
 }
@@ -64,6 +65,7 @@ dependencies {
     implementation deps.jetpack.navigation.ui
 
     // region <Compose>
+    implementation deps.jetpack.compose.compiler
     implementation deps.jetpack.compose.core
     implementation deps.jetpack.compose.uiTooling
     implementation deps.jetpack.compose.runtime
@@ -98,6 +100,7 @@ dependencies {
 
     implementation deps.easyPermissions
 
+    implementation deps.paging.runtime
     implementation deps.paging.compose
 
     implementation deps.timber
