@@ -8,11 +8,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath deps.androidGradlePlugin
+        classpath 'com.android.tools.build:gradle:7.0.0'
         classpath deps.kotlin.gradlePlugin
         classpath deps.hilt.plugin
         classpath deps.jetpack.navigation.plugin
-        classpath deps.google.googleServices
     }
 }
 

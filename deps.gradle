@@ -15,13 +15,13 @@ ext.buildConfig.version['fullName'] = "${buildConfig.version.name}.${buildConfig
 ext.buildConfig.version['code'] = buildConfig.version.major * 1000000 + buildConfig.version.minor * 10000 + buildConfig.version.patch * 100 + buildConfig.version.build
 
 ext.versions = [
-        'kotlin'      : '1.4.32',
+        'kotlin'      : '1.5.10',
         'coroutines'  : '1.4.2',
         'navigation'  : '2.3.4',
-        'compose'     : '1.0.0-beta03',
+        'compose'     : '1.0.0',
         'dagger'      : '2.33',
-        'hilt'        : '2.33-beta',
-        'hilt_androix': '1.0.0-alpha03',
+        'hilt'        : '2.37',
+        'hilt_androix': '1.0.0',
         'retrofit'    : '2.9.0',
         'okHttp'      : '4.9.0',
         'moshi'       : '1.11.0'
@@ -74,7 +74,8 @@ ext.deps = [
                         'materialIcons'        : "androidx.compose.material:material-icons-core:${versions.compose}",
                         'materialIconsExtended': "androidx.compose.material:material-icons-extended:${versions.compose}",
                         'activity'             : "androidx.activity:activity-compose:1.3.0-alpha03",
-                        'constraintLayout'     : "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha03"
+                        'constraintLayout'     : "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha03",
+                        'navigation'      : "androidx.navigation:navigation-compose:2.4.0-alpha05",
                 ]
         ],
         'dagger'             : [
@@ -89,7 +90,8 @@ ext.deps = [
                 'android'        : "com.google.dagger:hilt-android:${versions.hilt}",
                 'androidCompiler': "com.google.dagger:hilt-android-compiler:${versions.hilt}",
                 'viewmodel'      : "androidx.hilt:hilt-lifecycle-viewmodel:${versions.hilt_androix}",
-                'compiler'       : "androidx.hilt:hilt-compiler:${versions.hilt_androix}"
+                'compiler'       : "androidx.hilt:hilt-compiler:${versions.hilt_androix}",
+                'navigation'     : "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
         ],
         'retrofit'           : [
                 'base'                : "com.squareup.retrofit2:retrofit:${versions.retrofit}",

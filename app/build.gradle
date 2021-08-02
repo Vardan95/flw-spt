@@ -3,23 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'com.google.gms.google-services'
 
 apply from: "$project.rootDir/scripts/android-common.gradle"
 apply from: "$project.rootDir/scripts/test_deps.gradle"
 
 android {
-    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.vapetrosyan.flowrspot"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://flowrspot-api.herokuapp.com/\"")
     }
 
     buildTypes {
@@ -77,13 +73,14 @@ dependencies {
     implementation deps.jetpack.compose.materialIcons
     implementation deps.jetpack.compose.materialIconsExtended
     implementation deps.jetpack.compose.activity
+    implementation deps.jetpack.compose.navigation
     implementation deps.jetpack.compose.constraintLayout
     // endregion
 
     // region <Hilt>
     implementation deps.hilt.android
     kapt deps.hilt.androidCompiler
-    implementation deps.hilt.viewmodel
+    implementation deps.hilt.navigation
     kapt deps.hilt.compiler
     // endregion
 
