@@ -1,7 +1,12 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
+
+apply from: "$project.rootDir/scripts/android-common.gradle"
+apply from: "$project.rootDir/scripts/test_deps.gradle"
 
 android {
     compileSdkVersion 30
@@ -31,16 +36,68 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        compose true
+        buildConfig true
+
+        // Disable unused AGP features
+        aidl false
+        renderScript false
+        resValues false
+        shaders false
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
     }
 }
 
 dependencies {
+    implementation deps.kotlin.stdlib
 
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation deps.kotlin.coroutines.core
+    implementation deps.kotlin.coroutines.android
+
+    implementation deps.androidx.core
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.fragment
+    implementation deps.androidx.constraintLayout
+    implementation deps.androidx.lifecycle.runtime
+    implementation deps.google.material
+
+    implementation deps.jetpack.navigation.fragment
+    implementation deps.jetpack.navigation.ui
+
+    // region <Compose>
+    implementation deps.jetpack.compose.core
+    implementation deps.jetpack.compose.uiTooling
+    implementation deps.jetpack.compose.runtime
+    implementation deps.jetpack.compose.foundation
+    implementation deps.jetpack.compose.foundationLayout
+    implementation deps.jetpack.compose.material
+    implementation deps.jetpack.compose.materialIcons
+    implementation deps.jetpack.compose.materialIconsExtended
+    implementation deps.jetpack.compose.activity
+    implementation deps.jetpack.compose.constraintLayout
+    // endregion
+
+    // region <Hilt>
+    implementation deps.hilt.android
+    kapt deps.hilt.androidCompiler
+    implementation deps.hilt.viewmodel
+    kapt deps.hilt.compiler
+    // endregion
+
+    // region <Moshi>
+    implementation deps.moshi.core
+    implementation deps.moshi.reflection
+    // endregion
+
+    // region <Retrofit>
+    implementation deps.retrofit.base
+    implementation deps.retrofit.moshiSerialization
+    implementation deps.retrofit.okhttp
+    implementation(deps.retrofit.okhttpLogInterceptor) { exclude group: 'org.json', module: 'json' }
+    // endregion
+
+    implementation deps.easyPermissions
 }

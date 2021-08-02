@@ -1,0 +1,12 @@
+dependencies {
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockk
+    testImplementation deps.test.coroutines
+    testImplementation deps.test.truth
+    testImplementation deps.test.turbine
+    testImplementation deps.test.junitParams
+
+    androidTestImplementation deps.test.mockkAndroid
+    androidTestImplementation deps.androidx.test.junit
+    androidTestImplementation deps.androidx.test.espresso.core
+}
