@@ -11,7 +11,8 @@ class FlowerListItemConverter @Inject constructor() {
             name = item.name,
             latinName = item.latinName,
             sightings = item.sightings,
-            profilePicture = item.profilePicture,
+            profilePicture = if(item.profilePicture.orEmpty().startsWith("http")) item.profilePicture else
+                "https:${item.profilePicture.orEmpty()}",
             favorite = item.favorite
         )
 }

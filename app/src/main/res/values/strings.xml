@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FlowrSpot</string>
+    <string name="txt_sightings_count">%d sightings</string>
+    <string name="search_hint">Looking for something specific?</string>
 </resources>

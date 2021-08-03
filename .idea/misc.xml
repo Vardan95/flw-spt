@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_start_on.xml" value="0.24923076923076923" />
+        <entry key="app/src/main/res/drawable/ic_start_off.xml" value="0.24923076923076923" />
         <entry key="app/src/main/res/layout/navigation_activity.xml" value="0.22554347826086957" />
       </map>
     </option>

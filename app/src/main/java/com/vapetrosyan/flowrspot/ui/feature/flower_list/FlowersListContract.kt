@@ -15,7 +15,7 @@ class FlowersListContract {
 
     sealed class State : ViewState {
         object Initial : State()
-        data class Data(val pager: Flow<PagingData<FlowerListItem>>) : State()
+        data class Data(val searchQuery: String? = null, val pager: Flow<PagingData<FlowerListItem>>) : State()
     }
 
     sealed class Effect : ViewSideEffect {

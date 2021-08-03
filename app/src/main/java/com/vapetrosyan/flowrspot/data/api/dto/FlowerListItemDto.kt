@@ -7,6 +7,7 @@ import com.squareup.moshi.JsonClass
 data class FlowerListItemDto(
     val id: Long = -1,
     val name: String = "",
+    @Json(name = "latin_name")
     val latinName: String = "",
     val sightings: Int = 0,
     @Json(name = "profile_picture")

@@ -104,4 +104,5 @@ dependencies {
     implementation deps.paging.compose
 
     implementation deps.timber
+    implementation deps.coil
 }

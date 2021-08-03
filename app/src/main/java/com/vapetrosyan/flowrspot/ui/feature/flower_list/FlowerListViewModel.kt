@@ -19,7 +19,7 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
 
     companion object {
         const val CONTACTS_PAGE_SIZE = 100
-        const val SEARCH_DEBOUNCE_MILLIS = 500L
+        const val SEARCH_DEBOUNCE_MILLIS = 200L
     }
 
     private val searchQuery = MutableStateFlow<String?>(null)
@@ -51,6 +51,7 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
     private fun loadFlowers(searchText: String?) {
         emitState {
             FlowersListContract.State.Data(
+                searchQuery = searchQuery.value,
                 pager = Pager(
                     PagingConfig(
                         pageSize = CONTACTS_PAGE_SIZE,
