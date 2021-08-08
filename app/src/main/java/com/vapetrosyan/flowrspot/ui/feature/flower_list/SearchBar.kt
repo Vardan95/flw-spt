@@ -22,17 +22,17 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SearchView(
-    state: FlowersListContract.State,
+    state: FlowersListContract.LoadingState,
     onSearchTextChanged: (query: String?) -> Unit
 ) {
-    val isEmpty = state is FlowersListContract.State.Initial ||
-            (state is FlowersListContract.State.Data && state.searchQuery.isNullOrEmpty())
+    val isEmpty = state is FlowersListContract.LoadingState.None ||
+            (state as? FlowersListContract.LoadingState.Searching)?.searchQuery.isNullOrEmpty()
 
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp), horizontalArrangement = Arrangement.Center) {
         OutlinedTextField(
-            value =  (state as? FlowersListContract.State.Data)?.searchQuery ?: "",
+            value =  (state as? FlowersListContract.LoadingState.Searching)?.searchQuery ?: "",
             label = {
                 Text(text = stringResource(id = com.vapetrosyan.flowrspot.R.string.search_hint))
             },

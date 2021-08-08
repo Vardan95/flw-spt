@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.LoadState
-import androidx.paging.PagingData
+import androidx.paging.Pager
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberImagePainter
 import com.vapetrosyan.flowrspot.R
@@ -39,13 +39,14 @@ fun FlowerListScreen(
     onNavigationRequested: (navigationEffect: FlowersListContract.Effect.Navigation) -> Unit
 ) {
     when (state) {
-        is FlowersListContract.State.Initial -> ProgressIndicator()
         is FlowersListContract.State.Data -> {
             Column(modifier = Modifier.background(WhiteBackground)) {
-                SearchView(state = state, onSearchTextChanged = {
+                SearchView(state = state.loadingState, onSearchTextChanged = {
                     onEventSent(FlowersListContract.Event.SearchFlower(it))
                 })
-                FlowerList(pager = state.pager)
+                state.pager?.apply {
+                    FlowerList(pager = this)
+                }
             }
         }
     }
@@ -53,8 +54,8 @@ fun FlowerListScreen(
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun FlowerList(pager: Flow<PagingData<FlowerListItem>>) {
-    val lazyPagingItems = pager.collectAsLazyPagingItems()
+fun FlowerList(pager: Pager<Int, FlowerListItem>) {
+    val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
     LazyVerticalGrid(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),

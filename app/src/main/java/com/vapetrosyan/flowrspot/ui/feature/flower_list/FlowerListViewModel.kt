@@ -34,13 +34,18 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
     }
 
     override fun setInitialState(): FlowersListContract.State {
-        return FlowersListContract.State.Initial
+        return FlowersListContract.State.Data(FlowersListContract.LoadingState.None, null)
     }
 
     override fun processEvent(event: FlowersListContract.Event) {
         when (event) {
             is FlowersListContract.Event.SearchFlower -> {
                 searchQuery.value = event.query
+                emitState {
+                    FlowersListContract.State.Data(
+                        FlowersListContract.LoadingState.Searching(event.query)
+                    )
+                }
             }
             else -> {
                 Timber.w("Unknown event passed to FlowerListViewModel $event")
@@ -51,7 +56,7 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
     private fun loadFlowers(searchText: String?) {
         emitState {
             FlowersListContract.State.Data(
-                searchQuery = searchQuery.value,
+                FlowersListContract.LoadingState.Searching(searchText),
                 pager = Pager(
                     PagingConfig(
                         pageSize = CONTACTS_PAGE_SIZE,
@@ -66,7 +71,6 @@ class FlowerListViewModel @Inject constructor(private val flowerRepository: Flow
                         }
                     }
                 }
-                    .flow
             )
         }
     }
